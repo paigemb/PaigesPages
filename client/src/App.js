@@ -3,6 +3,11 @@ import { accessToken, logout, getCurrentUserBookshelves } from './googlebooks';
 import { catchErrors } from './utils';
 import './App.css';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
 
 function App() {
   //token variable for conditionally rendering the logged-in state
