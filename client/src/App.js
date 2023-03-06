@@ -1,17 +1,26 @@
 import { useState, useEffect } from 'react';
-import { accessToken, logout } from './googlebooks';
+import { accessToken, logout, getCurrentUserBookshelves } from './googlebooks';
+import { catchErrors } from './utils';
 import './App.css';
 
 
 function App() {
   //token variable for conditionally rendering the logged-in state
   const [token, setToken] = useState(null); //useState keeps track of token
+  const [bookshelves, setBookshelves] = useState(null);
 
   // store access token
   useEffect(() => {
     setToken(accessToken);
-  }, []);
 
+    const fetchData = async () => {
+        const { data } = await getCurrentUserBookshelves();
+        setBookshelves(data);
+    };
+
+    catchErrors(fetchData());
+  }, []);
+console.log("here are the" + bookshelves.title);
   return (
     <div className="App">
       <header className="App-header">
@@ -21,7 +30,6 @@ function App() {
         </a>
         ): (
           <>
-          <h1>Logged in!</h1>
           <button onClick={logout}>Log Out</button>
           </>
         )}

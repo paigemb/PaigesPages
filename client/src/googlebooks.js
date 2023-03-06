@@ -140,3 +140,18 @@ const getAccessToken = () => {
 };
 
 export const accessToken = getAccessToken();
+
+/***********************************************************************************************************/
+
+/* Axios functions */
+
+/**
+ * Axios global request headers
+ * Set base url and http request headers for every http request made with axios
+ * https://github.com/axios/axios#global-axios-defaults
+ */
+axios.defaults.baseURL = "https://www.googleapis.com/books/v1";
+axios.defaults.headers["Authorization"] = `Bearer ${accessToken}`; //access token is OAuth access token from local storage
+axios.defaults.headers["Content-Type"] = "application/json";
+
+export const getCurrentUserBookshelves = () => axios.get('/mylibrary/bookshelves/3')
