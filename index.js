@@ -8,6 +8,7 @@ const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 
+
 //parse and stringify query strings
 const querystring = require("querystring");
 
@@ -65,15 +66,14 @@ const generateRandomString = length => {
     })
     .then(response => {
       if (response.status === 200) {
-        const { access_token, refresh_token } = response.data;
+        const { access_token, refresh_token, expires_in } = response.data;
   
         const queryParams = querystring.stringify({
           access_token,
           refresh_token,
+          expires_in
         });
-  
         res.redirect(`http://localhost:3000/?${queryParams}`);
-  
       } else {
         res.redirect(`/?${querystring.stringify({ error: 'invalid_token' })}`);
       }

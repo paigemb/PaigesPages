@@ -1,33 +1,30 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
+import { accessToken, logout } from './googlebooks';
 import './App.css';
-import { useEffect } from 'react';
+
 
 function App() {
+  //token variable for conditionally rendering the logged-in state
+  const [token, setToken] = useState(null); //useState keeps track of token
 
+  // store access token
   useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString); //URLSearchParams built in web API
-    const accessToken = urlParams.get('access_token');
-    const refreshToken = urlParams.get('refresh_token');
-
- //   if (refreshToken) {
-     // fetch(`/refresh_token?refresh_token=${refreshToken}`)
-     // .then(res => console.log(res))
-     // .then(data => console.log("this is data " + data))
-    //  .catch(err => console.error("this is error " + err));
-   // }
+    setToken(accessToken);
   }, []);
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className="App-link" href="http://localhost:8888/login">
+        {!token ? (
+          <a className="App-link" href="http://localhost:8888/login">
           Login
         </a>
+        ): (
+          <>
+          <h1>Logged in!</h1>
+          <button onClick={logout}>Log Out</button>
+          </>
+        )}
       </header>
     </div>
   );
