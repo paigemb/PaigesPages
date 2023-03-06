@@ -48,6 +48,7 @@ const generateRandomString = length => {
   app.get('/callback', (req, res) => {
   const code = req.query.code || null; //authorization code from initial request
 
+  //https://developers.google.com/books/docs/v1/reference/?apix=true#mylibrary.bookshelves
   axios({
     method: 'post',
     url: 'https://oauth2.googleapis.com/token',
@@ -65,10 +66,9 @@ const generateRandomString = length => {
   })
   .then(response => {
     if (response.status === 200) {
-        console.log('good job')
       const { access_token, token_type } = response.data;
 
-      axios.get('https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes', {
+      axios.get('https://www.googleapis.com/books/v1/mylibrary/bookshelves/3', {
         headers: {
           Authorization: `${token_type} ${access_token}`
         }
@@ -87,6 +87,29 @@ const generateRandomString = length => {
   .catch(error => {
     res.send(error);
   });
+});
+
+app.get('/refresh_token', (req, res) => {
+  const { refresh_token } = req.query;
+
+  axios({
+    method: 'post',
+    url: 'https://oauth2.googleapis.com/token',
+    data: querystring.stringify({
+      grant_type: 'refresh_token',
+      refresh_token: refresh_token
+    }),
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+      Authorization: `Basic ${new Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
+    },
+  })
+    .then(response => {
+      res.send(response.data);
+    })
+    .catch(error => {
+      res.send(error);
+    });
 });
 
 app.listen(port, () => {
