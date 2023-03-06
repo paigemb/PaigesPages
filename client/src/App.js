@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { accessToken, logout, getCurrentUserBookshelves } from './googlebooks';
+import { StyledLogoutButton } from './styles';
 import { catchErrors } from './utils';
 import './App.css';
 
