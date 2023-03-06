@@ -1,7 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect } from 'react';
 
 function App() {
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString); //URLSearchParams built in web API
+    const accessToken = urlParams.get('access_token');
+    const refreshToken = urlParams.get('refresh_token');
+
+ //   if (refreshToken) {
+     // fetch(`/refresh_token?refresh_token=${refreshToken}`)
+     // .then(res => console.log(res))
+     // .then(data => console.log("this is data " + data))
+    //  .catch(err => console.error("this is error " + err));
+   // }
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
