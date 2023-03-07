@@ -1,32 +1,22 @@
 import { useState, useEffect } from 'react';
 import { accessToken, logout, getCurrentUserBookshelves } from './googlebooks';
-import { StyledLogoutButton } from './styles';
 import { catchErrors } from './utils';
 import './App.css';
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from 'react-router-dom';
+import { Home } from "./pages"
 
 function App() {
   //token variable for conditionally rendering the logged-in state
   const [token, setToken] = useState(null); //useState keeps track of token
-  const [bookshelves, setBookshelves] = useState(null);
+  //const [bookshelves, setBookshelves] = useState(null);
 
   // store access token
   useEffect(() => {
     setToken(accessToken);
 
-    const fetchData = async () => {
-        const { data } = await getCurrentUserBookshelves();
-        setBookshelves(data);
-    };
-
-    catchErrors(fetchData());
   }, []);
-console.log("here are the" + bookshelves.title);
+
+ 
   return (
     <div className="App">
       <header className="App-header">
@@ -36,10 +26,23 @@ console.log("here are the" + bookshelves.title);
         </a>
         ): (
           <>
-          <button onClick={logout}>Log Out</button>
+          <div className="header">
+              <a href="#default" className="logo">Paiges Pages</a>
+              <div className="header-right">
+                <a className="active" href="#home">Library</a>
+                <a href="#contact">Stats</a>
+                <a href="#about">Goals</a>
+                <button onClick={logout}>Log Out</button>
+              </div>
+            </div>
+            <div>
+            
+            </div>
           </>
         )}
       </header>
+      <p>Here is where we are trying to render some data</p>
+           <Home/>
     </div>
   );
 }

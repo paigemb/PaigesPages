@@ -57,7 +57,9 @@ const generateRandomString = length => {
       data: querystring.stringify({
         grant_type: 'authorization_code',
         code: code,
-        redirect_uri: REDIRECT_URI
+        redirect_uri: REDIRECT_URI,
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET
       }),
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
@@ -124,7 +126,7 @@ const generateRandomString = length => {
 
 // https://developers.google.com/identity/protocols/oauth2/web-server#exchange-authorization-code
 app.get('/refresh_token', (req, res) => {
-  const { refresh_token } = req.query.code || null;
+  const { refresh_token } = req.query || null;
 
   axios({
     method: 'post',
