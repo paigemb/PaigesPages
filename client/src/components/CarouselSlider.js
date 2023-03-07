@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   ButtonBack,
@@ -16,11 +16,55 @@ import Arrow from "./arrow.svg"
 import Card from "./Card";
 import useWindowSize from "../hooks/windowSize";
 
+import axios from "axios"; 
+import { catchErrors } from "../utils";
+import { getCurrentUserBookshelves, getCurrentReading } from "../googlebooks";
+
 const CarouselSlider = ({ setSlideCount, setCurrentSlide }) => {
   const screenWidth = useWindowSize();
 
   //pure-react-carousel context
   const carouselContext = useContext(CarouselContext);
+
+const [booksData, setBooksData] = useState(null);
+    const [books, setBooks] = useState([])
+    useEffect(() => {
+        const fetchData = async () => {
+          const { data } = await getCurrentReading();
+          setBooksData(data);
+        };
+    
+        catchErrors(fetchData());
+      }, []);
+    
+      // when playlistsData updates, check if there are more playlists to fetch
+      // then update the state variable
+      useEffect(() => {
+        if (!booksData) {
+          return;
+        }
+    
+        // playlist endpoint only returns 20 playlists at a time, so we need to
+        // make sure we get ALL playlists by fetching the next set of playlists
+        const fetchMoreData = async () => {
+          // wrap fetch and set state logic in conditional to loop until last paging object
+          if (booksData.next) {
+            const { data } = await axios.get(booksData.next);
+            setBooksData(data);
+          }
+        };
+    
+        //update playlists state variable w/functional update (reactjs.org/docs/hooks-reference.html#functional-updates)
+        //merges previous playlist state variable array with the items array on the current playlistsData object
+        //pass new playlists array into <PlaylistsGrid>
+        setBooks((books) => [
+          ...(books ? books : []),
+          ...booksData.items,
+        ]);
+    
+        // Fetch next set of playlists as needed
+        catchErrors(fetchMoreData());
+      }, [booksData]);
 
   useEffect(() => {
     const updateCarouselSlide = (slideToBeVisible) => {
@@ -52,14 +96,37 @@ const CarouselSlider = ({ setSlideCount, setCurrentSlide }) => {
     }
   }, [screenWidth, setSlideCount, setCurrentSlide, carouselContext]);
 
+
+
   return (
-    <Wrapper>
+    <>
+        <Wrapper>
+            <Slider>
+            {books.map((book, i) => (
+                <Slide index={i} className="slide" key={i}>
+                    <Card book={book}/>
+                </Slide>
+            ))}
+            </Slider>
+            <div className="controls">
+        <ButtonBack className="btn-arrow reverse-arrow">
+          <img src={Arrow} alt="arrow" />
+        </ButtonBack>
+        <DotGroup className="dot-group" />
+        <ButtonNext className="btn-arrow">
+          <img src={Arrow} alt="arrow" />
+        </ButtonNext>
+      </div>
+        </Wrapper>
+        <p>No books available</p>
+    </>);
+   /* <Wrapper>
       <Slider>
         <Slide index={0} className="slide">
-          <Card index={0} />
+          <Card books={books} index={0} />
         </Slide>
         <Slide index={1}>
-          <Card url={}/>
+          <Card />
         </Slide>
         <Slide index={2}>
           <Card />
@@ -74,17 +141,9 @@ const CarouselSlider = ({ setSlideCount, setCurrentSlide }) => {
           <Card />
         </Slide>
       </Slider>
-      <div className="controls">
-        <ButtonBack className="btn-arrow reverse-arrow">
-          <img src={Arrow} alt="arrow" />
-        </ButtonBack>
-        <DotGroup className="dot-group" />
-        <ButtonNext className="btn-arrow">
-          <img src={Arrow} alt="arrow" />
-        </ButtonNext>
-      </div>
+     
     </Wrapper>
-  );
+  );*/
 };
 
 const Wrapper = styled.div`

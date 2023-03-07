@@ -4,10 +4,11 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import CarouselSlider from "./CarouselSlider";
 import styled from "styled-components";
 
-const BookCarousel = () => {
+const BookCarousel = ({}) => {
   //no of slide to be visible
   const [slideCount, setSlideCount] = useState(2);
   const [currentSlide, setCurrentSlide] = useState(0);
+
 
   return (
     <CarouselWrapper className="carousel-container">

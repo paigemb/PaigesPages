@@ -1,31 +1,31 @@
 import styled from "styled-components";
 
-const Card = ({url}) => {
-  return (
-    <CardWrapper>
-      <div className="image-container">
-        <img src={url} alt="book cover"/>
-      </div>
+const Card = ({book}) => (
+    <>
+  
+        <CardWrapper>
+                <div className="image-container">
+                    <img src={book.volumeInfo.imageLinks.thumbnail} alt="book cover" />
+                </div><div className="content">
+                        <div className="heading">
+                            <h3 className="heading__title">
+                                 <span className="next-line">{book.volumeInfo.title}</span>
+                            </h3>
+                            <p className="heading__subtitle">{book.volumeInfo.authors}</p>
+                        </div>
 
-      <div className="content">
-        <div className="heading">
-          <h2 className="heading__title">
-            Content <span className="next-line">cards title</span>
-          </h2>
-          <h3 className="heading__subtitle">Card subtitle</h3>
-        </div>
-
-        <div className="details">
-          <p className="details__text">
-            Lorem ipsum dolor sit amet, consect etur adipi scing elit
-            <span className="next-line">sed do eiusmod tempor</span>
-          </p>
-          <button className="details__btn">Tertiary Button</button>
-        </div>
-      </div>
-    </CardWrapper>
-  );
-};
+                        <div className="details">
+                            <p className="details__text">
+        
+                            </p>
+                            <button className="details__btn">Read</button>
+                        </div>
+                    </div>
+        
+        </CardWrapper>
+ 
+    </>
+);
 
 const CardWrapper = styled.div`
   border-radius: 8px;
@@ -53,7 +53,7 @@ const CardWrapper = styled.div`
     .heading {
       .heading__title {
         font-weight: 400;
-        font-size: 28px;
+       
         padding-bottom: 10px;
         line-height: 34px;
       }

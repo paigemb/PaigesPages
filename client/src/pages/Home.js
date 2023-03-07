@@ -9,6 +9,7 @@ const Home = () => {
     //const [bookshelf, setBookshelves] = useState([])
     const [booksData, setBooksData] = useState(null);
     const [books, setBooks] = useState([])
+   
 
     useEffect(() => {
         const fetchData = async () => {
@@ -66,17 +67,19 @@ const Home = () => {
         catchErrors(fetchData());
     }, []);*/
 //console.log(books.items[0].volumeInfo)
-let arr = [];
+
+/* let arr = [];
     for (let i = 0; i < books.length + 1; i++) {
         if (books[i] && books[i] != undefined) {
-            arr.push(books[i].volumeInfo.imageLinks.thumbnail);
+            arr.push(books[i]);
         }
     }
+   */
 
     return (
         <> <h3>Currently Reading</h3>
  
-        {books ? <BookCarousel/> : <p>sorrryyyy</p>}
+  <BookCarousel/>
         </>
     )
 }
