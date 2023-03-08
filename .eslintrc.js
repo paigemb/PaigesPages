@@ -7,7 +7,8 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'standard',
-    'plugin:react-hooks/recommended'
+    'plugin:react-hooks/recommended',
+    "prettier"
   ],
   overrides: [
   ],

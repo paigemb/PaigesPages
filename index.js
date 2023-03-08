@@ -3,6 +3,24 @@ const express = require("express");
 const app = express();
 const axios = require("axios");
 const port = 8888;
+const cors = require("cors");
+
+//connect to mongoDB
+const mongoose = require('mongoose');
+
+const uri = process.env.ATLAS_URI;
+
+
+mongoose.connect(uri);
+
+const connection = mongoose.connection;
+connection.once('open', () => {
+  console.log("MongoDB database connection established successfully")
+})
+
+//sending and recieving json from server
+app.use(cors());
+app.use(express.json())
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -156,6 +174,12 @@ app.get("/refresh_token", (req, res) => {
       res.send(error);
     });
 });
+
+const booksRouter = require('./routes/books');
+const sessionsRouter = require('./routes/sessions');
+
+app.use('/sessions', sessionsRouter);
+app.use('/books', booksRouter)
 
 app.listen(port, () => {
   console.log(`Express app listening at http://localhost:${port}`);

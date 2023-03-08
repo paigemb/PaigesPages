@@ -11,7 +11,6 @@ const Card = ({ book }) => (
           <h3 className="heading__title">
             <span className="next-line">{book.volumeInfo.title}</span>
           </h3>
-          <p className="heading__subtitle">{book.volumeInfo.authors}</p>
         </div>
 
         <div className="details">
@@ -26,6 +25,8 @@ const Card = ({ book }) => (
 const CardWrapper = styled.div`
   border-radius: 8px;
   background: #f5f5f6;
+  width: 150px;
+  height: 300px;
 
   .image-container {
     height: 168px;

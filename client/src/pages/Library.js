@@ -53,7 +53,7 @@ const Library = () => {
       return true;
     }
   });
-  console.log(bookList);
+
 
   return (
     <>

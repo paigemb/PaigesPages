@@ -7,6 +7,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: 'LovelyBubbles';
+  src: local('LovelyBubbles'), url(./styles/fonts/LovelyBubbles.ttf)
+}
+ 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

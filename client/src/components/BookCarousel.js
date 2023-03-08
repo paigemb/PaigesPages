@@ -45,7 +45,7 @@ const CarouselWrapper = styled.div`
     }
 
     @media (min-width: 1272px) {
-      max-width: 1152px;
+      max-width: 500px;
     }
 
     @media (min-width: 1504px) {
@@ -57,7 +57,7 @@ const CarouselWrapper = styled.div`
   /* We need to override it to add space between slides */
   .carousel__inner-slide {
     /* width: 100% - margin */
-    width: calc(100% - 16px);
+    width: calc(100% - 150px);
     /* margin-left: margin/2 */
     /* margin is required to adjust positioning as the width is diminished*/
     margin-left: 8px;

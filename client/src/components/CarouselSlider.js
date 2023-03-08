@@ -18,7 +18,7 @@ import useWindowSize from "../hooks/windowSize";
 
 import axios from "axios";
 import { catchErrors } from "../utils";
-import { getCurrentUserBookshelves, getCurrentReading } from "../googlebooks";
+import { getCurrentReading } from "../googlebooks";
 
 const CarouselSlider = ({ setSlideCount, setCurrentSlide }) => {
   const screenWidth = useWindowSize();
@@ -90,11 +90,14 @@ const CarouselSlider = ({ setSlideCount, setCurrentSlide }) => {
     }
   }, [screenWidth, setSlideCount, setCurrentSlide, carouselContext]);
 
+  //only get first 5 books
+  let bookList = books.slice(0,5);
+
   return (
     <>
       <Wrapper>
         <Slider>
-          {books.map((book, i) => (
+          {bookList.map((book, i) => (
             <Slide index={i} className="slide" key={i}>
               <Card book={book} />
             </Slide>
