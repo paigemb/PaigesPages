@@ -15,7 +15,6 @@ const StyledGrid = styled.ul`
     grid-gap: var(--spacing-lg);
   }
   .grid__item {
-    
     background-color: var(--near-black);
     border-radius: var(--border-radius-subtle);
     padding: 20px;
@@ -39,7 +38,6 @@ const StyledGrid = styled.ul`
     }
   }
   .grid__item__inner {
-   
     padding: var(--spacing-sm);
     @media (min-width: 768px) {
       padding: var(--spacing-md);
@@ -65,9 +63,7 @@ const StyledGrid = styled.ul`
     padding: 10px;
     font-size: 15px;
     letter-spacing: normal;
-    
   }
-
 `;
 
 export default StyledGrid;

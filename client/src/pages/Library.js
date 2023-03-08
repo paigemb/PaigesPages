@@ -1,13 +1,12 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getCurrentReading } from "../googlebooks";
 import axios from "axios";
 import { catchErrors } from "../utils";
 
-import { BooksGrid } from "../components"
+import { BooksGrid } from "../components";
 
 const Library = () => {
-    
-    const [booksData, setBooksData] = useState(null);
+  const [booksData, setBooksData] = useState(null);
   const [books, setBooks] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -44,24 +43,23 @@ const Library = () => {
     catchErrors(fetchMoreData());
   }, [booksData]);
 
-  
   let seenTitles = {};
   let bookList = {};
-  bookList = books.filter(function(book) {
+  bookList = books.filter(function (book) {
     if (book.volumeInfo.title in seenTitles) {
-        return false;
+      return false;
+    } else {
+      seenTitles[book.volumeInfo.title] = true;
+      return true;
     }
-    else {
-        seenTitles[book.volumeInfo.title] = true;
-        return true;
-    }
-  })
-  console.log(bookList)
-  
-    return (
-        <><h3>Current Library</h3><
-            BooksGrid books={bookList} /></>
-       
-    )
+  });
+  console.log(bookList);
+
+  return (
+    <>
+      <h3>Current Library</h3>
+      <BooksGrid books={bookList} />
+    </>
+  );
 };
 export default Library;

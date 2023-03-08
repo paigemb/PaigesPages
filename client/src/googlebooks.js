@@ -171,6 +171,5 @@ export const getCurrentReading = () =>
   axios.get("/mylibrary/bookshelves/3/volumes");
 
 export const getBookById = (book_id) => {
-  return axios.get(`/volumes/${book_id}`)
-
-}
+  return axios.get(`/volumes/${book_id}`);
+};

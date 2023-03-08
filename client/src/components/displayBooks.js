@@ -10,13 +10,13 @@ const BooksGrid = ({ books }) => (
       <StyledGrid>
         {books.map((book, i) => (
           <li className="grid__item" key={i}>
-            <Link
-              className="grid__item__inner"
-              to={`/book/${book.id}`}
-            >
-                <div className="grid__item__img">
-                  <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
-                </div>
+            <Link className="grid__item__inner" to={`/book/${book.id}`}>
+              <div className="grid__item__img">
+                <img
+                  src={book.volumeInfo.imageLinks.thumbnail}
+                  alt={book.volumeInfo.title}
+                />
+              </div>
             </Link>
           </li>
         ))}

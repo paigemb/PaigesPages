@@ -37,22 +37,21 @@ function App() {
 
   return (
     <div className="App">
-        {!token ? (
-         <Login/>
-        ) : (
-          <>
-            <Header />
-            <Router>
-              <ScrollToTop />
-              <Switch>        
-                <Route path="/book/:id">
-                  <BookInfo/>
-                  </Route>     
-              </Switch>
-            </Router>
-          </>
-        )}
-
+      {!token ? (
+        <Login />
+      ) : (
+        <>
+          <Header />
+          <Router>
+            <ScrollToTop />
+            <Switch>
+              <Route path="/book/:id">
+                <BookInfo />
+              </Route>
+            </Switch>
+          </Router>
+        </>
+      )}
     </div>
   );
 }
