@@ -1,13 +1,12 @@
-require('dotenv').config();
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const app = express();
-const axios = require('axios');
+const axios = require("axios");
 const port = 8888;
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
-
 
 //parse and stringify query strings
 const querystring = require("querystring");
@@ -17,73 +16,76 @@ const querystring = require("querystring");
  * @param  {number} length The length of the string
  * @return {string} The generated string
  */
-const generateRandomString = length => {
-    let text = '';
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < length; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-  };
-  
-  //https://developers.google.com/identity/openid-connect/openid-connect#createxsrftoken
-  const stateKey = 'book_auth_state';
-  
-  app.get('/login', (req, res) => {
-    const state = generateRandomString(16);
-    res.cookie(stateKey, state);
-  
-    const scope = 'openid https://www.googleapis.com/auth/books';
-  
-    const queryParams = querystring.stringify({
-      client_id: CLIENT_ID,
-      response_type: 'code',
-      redirect_uri: REDIRECT_URI,
-      state: state,
-      scope: scope,
-      access_type: 'offline',
-      prompt: 'consent'
-    });
-  
-    res.redirect(`https://accounts.google.com/o/oauth2/v2/auth?${queryParams}`);
+const generateRandomString = (length) => {
+  let text = "";
+  const possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+};
+
+//https://developers.google.com/identity/openid-connect/openid-connect#createxsrftoken
+const stateKey = "book_auth_state";
+
+app.get("/login", (req, res) => {
+  const state = generateRandomString(16);
+  res.cookie(stateKey, state);
+
+  const scope = "openid https://www.googleapis.com/auth/books";
+
+  const queryParams = querystring.stringify({
+    client_id: CLIENT_ID,
+    response_type: "code",
+    redirect_uri: REDIRECT_URI,
+    state: state,
+    scope: scope,
+    access_type: "offline",
+    prompt: "consent",
   });
-  //https://developers.google.com/identity/openid-connect/openid-connect#java
-  app.get('/callback', (req, res) => {
-    const code = req.query.code || null;
-  
-    axios({
-      method: 'post',
-      url: 'https://oauth2.googleapis.com/token',
-      data: querystring.stringify({
-        grant_type: 'authorization_code',
-        code: code,
-        redirect_uri: REDIRECT_URI,
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET
-      }),
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        Authorization: `Basic ${new Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
-      },
-    })
-    .then(response => {
+
+  res.redirect(`https://accounts.google.com/o/oauth2/v2/auth?${queryParams}`);
+});
+//https://developers.google.com/identity/openid-connect/openid-connect#java
+app.get("/callback", (req, res) => {
+  const code = req.query.code || null;
+
+  axios({
+    method: "post",
+    url: "https://oauth2.googleapis.com/token",
+    data: querystring.stringify({
+      grant_type: "authorization_code",
+      code: code,
+      redirect_uri: REDIRECT_URI,
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+    }),
+    headers: {
+      "content-type": "application/x-www-form-urlencoded",
+      Authorization: `Basic ${new Buffer.from(
+        `${CLIENT_ID}:${CLIENT_SECRET}`
+      ).toString("base64")}`,
+    },
+  })
+    .then((response) => {
       if (response.status === 200) {
         const { access_token, refresh_token, expires_in } = response.data;
-  
+
         const queryParams = querystring.stringify({
           access_token,
           refresh_token,
-          expires_in
+          expires_in,
         });
         res.redirect(`http://localhost:3000/?${queryParams}`);
       } else {
-        res.redirect(`/?${querystring.stringify({ error: 'invalid_token' })}`);
+        res.redirect(`/?${querystring.stringify({ error: "invalid_token" })}`);
       }
     })
-    .catch(error => {
+    .catch((error) => {
       res.send(error);
     });
-  });
+});
 
 /*  app.get('/callback', (req, res) => {
   const code = req.query.code || null; //authorization code from initial request
@@ -125,30 +127,32 @@ const generateRandomString = length => {
 }); */
 
 // https://developers.google.com/identity/protocols/oauth2/web-server#exchange-authorization-code
-app.get('/refresh_token', (req, res) => {
+app.get("/refresh_token", (req, res) => {
   const { refresh_token } = req.query || null;
 
   axios({
-    method: 'post',
-    url: 'https://oauth2.googleapis.com/token',
+    method: "post",
+    url: "https://oauth2.googleapis.com/token",
     data: querystring.stringify({
       client_id: CLIENT_ID,
       client_secret: CLIENT_SECRET,
       code: refresh_token,
-      grant_type: 'refresh_token',
+      grant_type: "refresh_token",
       redirect_uri: REDIRECT_URI,
-      access_type: 'offline',
-      prompt: 'consent'
+      access_type: "offline",
+      prompt: "consent",
     }),
     headers: {
-      'content-type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${new Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
+      "content-type": "application/x-www-form-urlencoded",
+      Authorization: `Basic ${new Buffer.from(
+        `${CLIENT_ID}:${CLIENT_SECRET}`
+      ).toString("base64")}`,
     },
   })
-    .then(response => {
+    .then((response) => {
       res.send(response.data);
     })
-    .catch(error => {
+    .catch((error) => {
       res.send(error);
     });
 });

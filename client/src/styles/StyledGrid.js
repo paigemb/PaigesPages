@@ -3,9 +3,10 @@
 import styled from "styled-components/macro";
 
 const StyledGrid = styled.ul`
+  width: 800px;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 50;
+  padding: 50;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   grid-gap: var(--spacing-sm);
@@ -14,8 +15,10 @@ const StyledGrid = styled.ul`
     grid-gap: var(--spacing-lg);
   }
   .grid__item {
+    
     background-color: var(--near-black);
     border-radius: var(--border-radius-subtle);
+    padding: 20px;
     transition: background-color 0.3s ease;
     cursor: default;
     &:hover,
@@ -36,6 +39,7 @@ const StyledGrid = styled.ul`
     }
   }
   .grid__item__inner {
+   
     padding: var(--spacing-sm);
     @media (min-width: 768px) {
       padding: var(--spacing-md);
@@ -56,14 +60,14 @@ const StyledGrid = styled.ul`
     }
   }
   .grid__item__name {
-    margin: 0 0 var(--spacing-xxs);
-    font-size: var(--fz-md);
+    margin: 0 auto;
+    text-align: right;
+    padding: 10px;
+    font-size: 15px;
     letter-spacing: normal;
+    
   }
-  .grid__item__label {
-    font-size: var(--fz-sm);
-    color: var(--light-grey);
-  }
+
 `;
 
 export default StyledGrid;

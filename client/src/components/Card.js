@@ -1,30 +1,26 @@
 import styled from "styled-components";
 
-const Card = ({book}) => (
-    <>
-  
-        <CardWrapper>
-                <div className="image-container">
-                    <img src={book.volumeInfo.imageLinks.thumbnail} alt="book cover" />
-                </div><div className="content">
-                        <div className="heading">
-                            <h3 className="heading__title">
-                                 <span className="next-line">{book.volumeInfo.title}</span>
-                            </h3>
-                            <p className="heading__subtitle">{book.volumeInfo.authors}</p>
-                        </div>
+const Card = ({ book }) => (
+  <>
+    <CardWrapper>
+      <div className="image-container">
+        <img src={book.volumeInfo.imageLinks.thumbnail} alt="book cover" />
+      </div>
+      <div className="content">
+        <div className="heading">
+          <h3 className="heading__title">
+            <span className="next-line">{book.volumeInfo.title}</span>
+          </h3>
+          <p className="heading__subtitle">{book.volumeInfo.authors}</p>
+        </div>
 
-                        <div className="details">
-                            <p className="details__text">
-        
-                            </p>
-                            <button className="details__btn">Read</button>
-                        </div>
-                    </div>
-        
-        </CardWrapper>
- 
-    </>
+        <div className="details">
+          <p className="details__text"></p>
+          <button className="details__btn">Read</button>
+        </div>
+      </div>
+    </CardWrapper>
+  </>
 );
 
 const CardWrapper = styled.div`
@@ -53,7 +49,7 @@ const CardWrapper = styled.div`
     .heading {
       .heading__title {
         font-weight: 400;
-       
+
         padding-bottom: 10px;
         line-height: 34px;
       }

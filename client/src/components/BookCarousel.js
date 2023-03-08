@@ -9,7 +9,6 @@ const BookCarousel = ({}) => {
   const [slideCount, setSlideCount] = useState(2);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-
   return (
     <CarouselWrapper className="carousel-container">
       <CarouselProvider

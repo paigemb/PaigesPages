@@ -1,48 +1,58 @@
-import { useState, useEffect } from 'react';
-import { accessToken, logout, getCurrentUserBookshelves } from './googlebooks';
-import { catchErrors } from './utils';
-import './App.css';
+import { useState, useEffect } from "react";
+import { accessToken, logout } from "./googlebooks";
+import { catchErrors } from "./utils";
+import "./App.css";
 
-import { Home } from "./pages"
+import { Home, Library, Login, BookInfo } from "./pages";
+import { Header } from "./components";
+
+// imports to handling page routing
+import {
+  BrowserRouter as Router,
+  Switch, //switch will find the first element with matching path and ignore the rest -> list more specific routes first
+  Route,
+  useLocation,
+} from "react-router-dom";
+
+// Scroll to top of page when changing routes
+// https://reactrouter.com/web/guides/scroll-restoration/scroll-to-top
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   //token variable for conditionally rendering the logged-in state
   const [token, setToken] = useState(null); //useState keeps track of token
-  //const [bookshelves, setBookshelves] = useState(null);
 
   // store access token
   useEffect(() => {
     setToken(accessToken);
-
   }, []);
 
- 
   return (
     <div className="App">
-      <header className="App-header">
         {!token ? (
-          <a className="App-link" href="http://localhost:8888/login">
-          Login
-        </a>
-        ): (
+         <Login/>
+        ) : (
           <>
-          <div className="header">
-              <a href="#default" className="logo">Paiges Pages</a>
-              <div className="header-right">
-                <a className="active" href="#home">Library</a>
-                <a href="#contact">Stats</a>
-                <a href="#about">Goals</a>
-                <button onClick={logout}>Log Out</button>
-              </div>
-            </div>
-            <div>
-            
-            </div>
+            <Header />
+            <Router>
+              <ScrollToTop />
+              <Switch>        
+                <Route path="/book/:id">
+                  <BookInfo/>
+                  </Route>     
+              </Switch>
+            </Router>
           </>
         )}
-      </header>
-      <p>Here is where we are trying to render some data</p>
-           <Home/>
+
     </div>
   );
 }
