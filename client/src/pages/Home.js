@@ -2,6 +2,7 @@
 
 import { BookCarousel } from "../components";
 import { StyledHome } from "../styles";
+import heart from "../music/heart.png"
 
 const Home = () => {
   return (
@@ -9,9 +10,10 @@ const Home = () => {
       <StyledHome>
         {" "}
         <div className="bookCarousel">
-          <h3 className="read">Recently Read:</h3>
+          <h2 className="read">Recently Read:</h2>
           <BookCarousel />
         </div>
+       
       </StyledHome>
     </>
   );

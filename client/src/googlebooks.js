@@ -164,12 +164,59 @@ axios.defaults.headers["Content-Type"] = "application/json";
 
 //https://developers.google.com/books/docs/v1/reference/?apix=true
 
+/**
+ * Returns data about bookshelf
+ * 3 === "Currently Reading Bookshelf"
+ * @returns {Promise}
+ */
 export const getCurrentUserBookshelves = () =>
   axios.get("/mylibrary/bookshelves/3");
 
+  /**
+   * The books in the "Currently Reading" Bookshelf
+   * Volumes === book in Google API
+   * @returns {Promise}
+   */
 export const getCurrentReading = () =>
   axios.get("/mylibrary/bookshelves/3/volumes");
 
+  /**
+   * Return all info about a specific book
+   * @param {string} book_id -unique id for each volume
+   * @returns 
+   */
+export const bookSearch = (title) => {
+  return axios.get(`/volumes?q=${title}&maxResults=10`);
+};
+
+/**
+   * Return all info about a specific book
+   * @param {string} book_id -unique id for each volume
+   * @returns 
+   */
 export const getBookById = (book_id) => {
   return axios.get(`/volumes/${book_id}`);
+};
+
+
+
+/**
+   * Delete book from bookshelf
+   * @param {string} book_id -unique id for each volume
+   * @returns empty response body
+   */
+export const deleteBookById = (book_id) => {
+   axios.post(`/mylibrary/bookshelves/3/removeVolume?volumeId=${book_id}`);
+   console.log('deleted');
+};
+
+
+/**
+   * Add book to bookshelf
+   * @param {string} book_id -unique id for each volume
+   * @returns empty response body
+   */
+export const addBookByID = (book_id) => {
+  axios.post(`/mylibrary/bookshelves/3/addVolume?volumeId=${book_id}`);
+  console.log('added');
 };

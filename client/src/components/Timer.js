@@ -1,4 +1,4 @@
-import { set } from "mongoose";
+/*Component for Timer & time to finish book */
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 
@@ -10,19 +10,28 @@ const Timer = (pC) => {
   const [firstPage, setFirstPage] = useState(0);
   const [endPage, setEndPage] = useState(0);
 
+  /**
+   * Calculate estimated time to finish reading a given book
+   */
   function timeToFinish() {
     let pagesRead = endPage - firstPage;
     let pagesLeft = pageCount.book - pagesRead;
 
     let timeLeft = (seconds * pagesLeft) / pagesRead;
-
-    setTimeToRead(timeLeft);
+    let convert = Math.round(timeLeft/60);
+    setTimeToRead(convert);
   }
 
+  /**
+   * Start/Pause timer
+   */
   function toggle() {
     setIsActive(!isActive);
   }
 
+  /**
+   * Reset timer to zero
+   */
   function reset() {
     setSeconds(0);
     setIsActive(false);
@@ -39,7 +48,7 @@ const Timer = (pC) => {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [isActive, seconds]);
+  }, [isActive, seconds, pC]);
 
   return (
     <StyleTimer>
@@ -61,7 +70,7 @@ const Timer = (pC) => {
           <form>
             <div className="input">
               <label>
-                Start Page:
+                Start Page : 
                 <input
                   name="start"
                   type="number"
@@ -71,7 +80,7 @@ const Timer = (pC) => {
             </div>
             <div className="input">
               <label>
-                End Page:
+                End Page :
                 <input
                   name="end"
                   type="number"
@@ -115,6 +124,11 @@ const StyleTimer = styled.div`
 
   .button:hover {
     background-color: pink;
+  }
+
+  label {
+    padding: 15px;
+    margin-right: 10px;
   }
 
   .input {

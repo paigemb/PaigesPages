@@ -6,8 +6,9 @@ import { StyledGrid } from "../styles";
 //map through each book in list, extract and display data
 const BooksGrid = ({ books }) => (
   <>
+  <h2>Currently Reading Bookshelf</h2>
     {books ? (
-      <StyledGrid>
+      <StyledGrid>  
         {books.map((book, i) => (
           <li className="grid__item" key={i}>
             <Link className="grid__item__inner" to={`/book/${book.id}`}>

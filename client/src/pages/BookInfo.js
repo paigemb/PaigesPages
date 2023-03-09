@@ -1,7 +1,7 @@
 /* Page to display an individual book */
 
 import React, { useEffect, useState } from "react";
-import { getBookById } from "../googlebooks";
+import { getBookById, deleteBookById } from "../googlebooks";
 import { catchErrors } from "../utils";
 import { useParams } from "react-router-dom";
 import { StyledBookInfo } from "../styles";
@@ -18,6 +18,12 @@ const BookInfo = () => {
     };
     catchErrors(fetchData());
   }, [id]);
+
+
+  function deleteBook() {
+    console.log(book.id)
+    deleteBookById(book.id)
+  }
 
   return (
     <>
@@ -50,6 +56,7 @@ const BookInfo = () => {
                 <Timer book={book.volumeInfo.pageCount} />
               </div>
               <AudioPlayer />
+              <button onClick={deleteBook}>Delete Book</button>
             </StyledBookInfo>
           </>
         </>

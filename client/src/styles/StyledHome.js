@@ -7,11 +7,13 @@ const StyledHome = styled.div`
   background-color: white;
 
   .bookCarousel {
-    float: left;
+    float: center;
   }
   .read {
     text-align: left;
   }
+
+
 `;
 
 export default StyledHome;

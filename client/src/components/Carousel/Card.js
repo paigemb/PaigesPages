@@ -1,21 +1,20 @@
+/*Component for each Book in the Carousel */
+import { Link } from "react-router-dom"; //wraps each book item into a link to individual book page
 import styled from "styled-components";
 
 const Card = ({ book }) => (
   <>
     <CardWrapper>
       <div className="image-container">
+      <Link to={`/book/${book.id}`}>
         <img src={book.volumeInfo.imageLinks.thumbnail} alt="book cover" />
+        </Link>
       </div>
       <div className="content">
         <div className="heading">
           <h3 className="heading__title">
             <span className="next-line">{book.volumeInfo.title}</span>
           </h3>
-        </div>
-
-        <div className="details">
-          <p className="details__text"></p>
-          <button className="details__btn">Read</button>
         </div>
       </div>
     </CardWrapper>
@@ -24,7 +23,7 @@ const Card = ({ book }) => (
 
 const CardWrapper = styled.div`
   border-radius: 8px;
-  background: #f5f5f6;
+  background: lavendar;
   width: 150px;
   height: 300px;
   padding: 15px;

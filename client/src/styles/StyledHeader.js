@@ -40,23 +40,24 @@ const StyledHeader = styled.div`
   .header-right {
     display:flex;
     align-items: right;
-    margin-left: 65%;
+    margin-left: 75%;
     margin-top: 10%;
   
   }
 
   .item a{ 
-    font-size: 35px;
+    font-size: 50px;
     display: inline-block;
     color: black;
-    font-family:LovelyBubbles;
+    font-family:AntiqueBookCover;
     position:relative;
     float: right;
     padding: 15px;
     align-self: right;
-    
-    
+
   }
+
+  
 
   a:hover {
     color: black;

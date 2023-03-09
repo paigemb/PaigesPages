@@ -59,6 +59,11 @@ const StyledGrid = styled.ul`
       border-radius: "2px";
     }
   }
+
+  h2 {
+    font-family: AntiqueBookCover; !important
+    font-size: 50px;
+  }
   
 `;
 
