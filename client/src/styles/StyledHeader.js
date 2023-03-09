@@ -1,6 +1,5 @@
 import styled from "styled-components/macro";
 
-
 const StyledHeader = styled.div`
   .header {
     background-color: #f1ddee;
@@ -87,7 +86,6 @@ const StyledHeader = styled.div`
     position:relative;
 
   }
-  `
-  
+  `;
 
 export default StyledHeader;

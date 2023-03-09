@@ -1,9 +1,9 @@
-/* Component for grid of public playlists displayed on profile page */
-//not no StyledGrid type specified, no circular framing
+/* Component for grid of books displayed on library page */
 
-import { Link } from "react-router-dom"; //wraps each playlist item into a link to individual playlist page
+import { Link } from "react-router-dom"; //wraps each book item into a link to individual book page
 import { StyledGrid } from "../styles";
 
+//map through each book in list, extract and display data
 const BooksGrid = ({ books }) => (
   <>
     {books ? (

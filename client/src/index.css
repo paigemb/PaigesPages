@@ -20,7 +20,6 @@ body {
   src: local("AntiqueBookCover"), url(./styles/fonts/AntiqueBookCover.otf);
 }
 
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

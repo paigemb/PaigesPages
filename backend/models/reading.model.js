@@ -1,3 +1,4 @@
+/* Model for book data using mongoose Schema */
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 

@@ -1,6 +1,16 @@
-import styled from "styled-components/macro";
-import SpotifyLogin from "./SpotifyLogin";
+/* Page to prompt user to grant access  */
 
+import styled from "styled-components/macro";
+
+const Login = () => (
+  <StyledLoginContainer>
+    <StyledLoginButton href="http://localhost:8888/login">
+      Log in to Google Books
+    </StyledLoginButton>
+  </StyledLoginContainer>
+);
+
+//styling 
 const StyledLoginContainer = styled.main`
   display: flex;
   flex-direction: column;
@@ -21,19 +31,11 @@ const StyledLoginButton = styled.a`
   font-weight: 700;
   font-size: 30px;
   padding: 10px;
-  text-decoration:none;
+  text-decoration: none;
   &:hover {
     background-color: pink;
   }
 `;
 
-const Login = () => (
-  <StyledLoginContainer>
-    <StyledLoginButton href="http://localhost:8888/login">
-      Log in to Google Books
-    </StyledLoginButton>
-    <SpotifyLogin/>
-  </StyledLoginContainer>
-);
 
 export default Login;

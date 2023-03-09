@@ -10,18 +10,20 @@ const Header = () => {
       <StyledHeader>
         <div className="header">
           <h1 className="title">
-           <Link to="/"> Paiges Pages.</Link>
+            <Link to="/"> Paiges Pages.</Link>
           </h1>
-          <button onClick={logout} className="button">Log Out</button>
+          <button onClick={logout} className="button">
+            Log Out
+          </button>
           <div className="header-right">
-          <div className='item'><Link to="/library">Library</Link></div>
-            <div className='item'><Link to="/read">Read Now </Link></div>
-          
+            <div className="item">
+              <Link to="/library">Library</Link>
+            </div>
+            <div className="item">
+              <Link to="/read">Read Now </Link>
+            </div>
           </div>
-          
-         
         </div>
-     
       </StyledHeader>
       <Route path="/" exact component={Home} />
       <Route path="/library">

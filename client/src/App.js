@@ -22,15 +22,13 @@ function ScrollToTop() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-
-
   return null;
 }
 
 function App() {
   //token variable for conditionally rendering the logged-in state
   const [token, setToken] = useState(null); //useState keeps track of token
-  const [playlist, setPlaylist] = useState('')
+  const [playlist, setPlaylist] = useState("");
   // store access token
   useEffect(() => {
     setToken(accessToken);

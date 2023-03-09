@@ -156,9 +156,9 @@ export const accessToken = getAccessToken();
 //axios.defaults.headers["Authorization"] = `Bearer ${accessToken}`; //access token is OAuth access token from local storage
 axios.defaults.headers["Content-Type"] = "application/json";
 const instance = axios.create({
-    baseURL : 'http://api.spotify.com/v1',
-    headers: {'Authorization': `Bearer ${accessToken}`}
-})
+  baseURL: "http://api.spotify.com/v1",
+  headers: { Authorization: `Bearer ${accessToken}` },
+});
 
 /**
  * Get a Playlist
@@ -171,8 +171,8 @@ export const getPlaylistById = (playlist_id) => {
 };
 
 export const getPlaylist = (playlist_id) => {
-    return instance.get(`/playlists/${playlist_id}`)
-}
+  return instance.get(`/playlists/${playlist_id}`);
+};
 
 /**
  * Get Audio Features for Several Tracks
@@ -183,5 +183,3 @@ export const getPlaylist = (playlist_id) => {
 export const getAudioFeaturesForTracks = (ids) => {
   return axios.get(`/audio-features?ids=${ids}`);
 };
-
-
