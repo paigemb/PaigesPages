@@ -10,6 +10,6 @@ ${fonts};
  h1 {
     font-family var(--font)
  }
-`
+`;
 
-export default GlobalStyle
+export default GlobalStyle;

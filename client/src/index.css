@@ -8,10 +8,18 @@ body {
 }
 
 @font-face {
-  font-family: 'LovelyBubbles';
-  src: local('LovelyBubbles'), url(./styles/fonts/LovelyBubbles.ttf)
+  font-family: "LovelyBubbles";
+  src: local("LovelyBubbles"), url(./styles/fonts/LovelyBubbles.ttf);
 }
- 
+@font-face {
+  font-family: "Bookends";
+  src: local("Bookends"), url(./styles/fonts/Bookends.ttf);
+}
+@font-face {
+  font-family: "AntiqueBookCover";
+  src: local("AntiqueBookCover"), url(./styles/fonts/AntiqueBookCover.otf);
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

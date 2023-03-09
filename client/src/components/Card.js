@@ -27,6 +27,8 @@ const CardWrapper = styled.div`
   background: #f5f5f6;
   width: 150px;
   height: 300px;
+  padding: 15px;
+  border-style: outset;
 
   .image-container {
     height: 168px;
@@ -45,24 +47,12 @@ const CardWrapper = styled.div`
   }
 
   .content {
-    padding: 24px 16px 31px;
-
     .heading {
       .heading__title {
-        font-weight: 400;
-
-        padding-bottom: 10px;
-        line-height: 34px;
-      }
-
-      .heading__subtitle {
-        font-weight: 600;
-        font-size: 25px;
-        color: #4b4c53;
-        padding-bottom: 19px;
+        font-size: 30px;
+        font-family: AntiqueBookCover;
       }
     }
-
     .details {
       .details__text {
         font-weight: 200;

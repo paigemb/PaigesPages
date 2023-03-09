@@ -4,35 +4,31 @@ import { SectionWrapper } from "./SectionWrapper";
 import { Home, Library, Read } from "../pages";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-
 const Header = () => {
   return (
     <Router>
-     
       <StyledHeader>
-     
         <div className="header">
-          <h1 className="logo">
-            <Link to="/"> Paige's Pages </Link>
+          <h1 className="title">
+           <Link to="/"> Paiges Pages.</Link>
           </h1>
-          
+          <button onClick={logout} className="button">Log Out</button>
           <div className="header-right">
-            
-          <Link to="/read">Read Now </Link>
-            <Link to="/library">Library</Link>
-
+          <div className='item'><Link to="/library">Library</Link></div>
+            <div className='item'><Link to="/read">Read Now </Link></div>
+          
           </div>
           
+         
         </div>
-        
+     
       </StyledHeader>
-      <button onClick={logout}>Log Out</button>
       <Route path="/" exact component={Home} />
       <Route path="/library">
         <Library />
       </Route>
-      <Route path='/read'>
-        <Read/>
+      <Route path="/read">
+        <Read />
       </Route>
     </Router>
   );

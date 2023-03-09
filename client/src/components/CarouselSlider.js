@@ -91,7 +91,7 @@ const CarouselSlider = ({ setSlideCount, setCurrentSlide }) => {
   }, [screenWidth, setSlideCount, setCurrentSlide, carouselContext]);
 
   //only get first 5 books
-  let bookList = books.slice(0,5);
+  let bookList = books.slice(0, 5);
 
   return (
     <>

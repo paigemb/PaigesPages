@@ -1,14 +1,19 @@
-import { BooksRow, CarouselPage, BookCarousel } from "../components";
+import { BookCarousel } from "../components";
+import { StyledHome } from "../styles";
 
 const Home = () => {
   return (
     <>
+    <StyledHome>
       {" "}
-      <h3>Currently Reading</h3>
+      <div className="bookCarousel">
+      <h3 className="read">Recently Read:</h3>
       <BookCarousel />
+      </div>
+      </StyledHome>
     </>
   );
 };
 
 export default Home;
-/**{books ? <CarouselPage books={arr}/> : <p>sorrryyyy</p>} */
+

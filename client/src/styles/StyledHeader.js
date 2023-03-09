@@ -1,65 +1,93 @@
 import styled from "styled-components/macro";
-import fonts from "../styles/fonts/fonts";
+
 
 const StyledHeader = styled.div`
-${fonts}; 
   .header {
+    background-color: #f1ddee;
     overflow: hidden;
-    background-color: pink;
-    padding: 20px 10px;
-    font-family: LovelyBubbles
+    padding: 20px; 10px;   
+    height: 180px;
+    border-style: outset;
+    border-width: medium
+    
   }
-
+  
   .header a {
-    float: left;
-    color: gray;
-    text-align: center;
-    padding: 12px;
     text-decoration: none;
-    font-size: 50px;
-    line-height: 25px;
-    border-radius: 4px;
   }
-
-  .logo {
+  .title {
+    font-family: Bookends;
+    color: white;
+    font-size: 200px;
+    vertical-align: top;
+    margin-top: 0px;
     float: left;
-    color: gray;
-    font-family: LovelyBubbles;
-    font-size: 40px;
-    font-weight: bold;
-    padding: 10px 10px 10px 10px
-  }
+    }
 
-  .a:hover {
-    background-color: lavender;
-    color: black;
+  .title a{
+    top: 0;
+    vertical-align: top;
+    color: white
+    font-family: Bookends;
+    font-weight:normal;
   }
-
-  .header a.active {
-    background-color: lightpink;
+  a {
     color: black;
+ 
   }
 
   .header-right {
+    display:flex;
+    align-items: right;
+    margin-left: 65%;
+    margin-top: 10%;
+  
+  }
+
+  .item a{ 
+    font-size: 35px;
+    display: inline-block;
+    color: black;
+    font-family:LovelyBubbles;
+    position:relative;
     float: right;
-    font-size: 40px;
+    padding: 15px;
+    align-self: right;
+    
+    
   }
-  .read {
-    padding: 10px
+
+  a:hover {
+    color: black;
+    text-align: center;
+    animation: glow 1s ease-in-out infinite alternate;
   }
-  .library {
-    padding: 10px;
+  button:hover {
+    color: black;
+    text-align: center;
+    animation: glow 1s ease-in-out infinite alternate;
   }
-  @media screen and (max-width: 500px) {
-    .header a {
-      float: none;
-      display: block;
-      text-align: left;
+  
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
     }
-    .header-right {
-      float: none;
+    to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
     }
   }
-`;
+  .button {
+    font-size: 25px;
+    font-weight:bold;
+    color:black;
+    background:none;
+    border: none;
+    font-family:LovelyBubbles;
+    float: right;
+    position:relative;
+
+  }
+  `
+  
 
 export default StyledHeader;
