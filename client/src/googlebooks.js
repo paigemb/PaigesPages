@@ -12,10 +12,10 @@ import axios from "axios";
 
 // Map for local storage keys
 const LOCALSTORAGE_KEYS = {
-  accessToken: "spotify_access_token",
-  refreshToken: "spotify_refresh_token",
-  expireTime: "spotify_token_expire_time", //3600 seconds
-  timestamp: "spotify_token_timestamp", //timestamp of when the access token currently in use was fetched
+  accessToken: "google_access_token",
+  refreshToken: "google_refresh_token",
+  expireTime: "google_token_expire_time", //3600 seconds
+  timestamp: "google_token_timestamp", //timestamp of when the access token currently in use was fetched
 };
 
 // Map to retrieve local storage values
@@ -44,12 +44,12 @@ export const logout = () => {
 };
 
 /**
- * Checks if the amount of time that has elapsed between the timestamp in local storage
+ * Checks if the amount of time that has elapsed between the timestamp in localStorage
  * and now is greater than the expiration time of 3600 seconds (1 hour).
  * @returns {boolean} Whether or not the access token in localStorage has expired
  */
 const hasTokenExpired = () => {
-  const { accessToken, timestamp, expireTime } = LOCALSTORAGE_VALUES; //destructuring for simplicity
+  const { accessToken, timestamp, expireTime } = LOCALSTORAGE_VALUES;
   if (!accessToken || !timestamp) {
     return false;
   }
@@ -59,13 +59,12 @@ const hasTokenExpired = () => {
 
 /**
  * Use the refresh token in localStorage to hit the /refresh_token endpoint
- * in Node, then update values in localStorage with data from response.
- * async b/c of the API call to /refresh_token endpoint
+ * in our Node app, then update values in localStorage with data from response.
  * @returns {void}
  */
 const refreshToken = async () => {
   try {
-    // Logout if there's no refresh token stored or if in a reload infinite loop (?)
+    // Logout if there's no refresh token stored or we've managed to get into a reload infinite loop
     if (
       !LOCALSTORAGE_VALUES.refreshToken ||
       LOCALSTORAGE_VALUES.refreshToken === "undefined" ||
@@ -75,19 +74,19 @@ const refreshToken = async () => {
       logout();
     }
 
-    // Use `/refresh_token` endpoint from Node
+    // Use `/refresh_token` endpoint from our Node app
     const { data } = await axios.get(
       `/refresh_token?refresh_token=${LOCALSTORAGE_VALUES.refreshToken}`
     );
 
-    // Update local storage values
+    // Update localStorage values
     window.localStorage.setItem(
       LOCALSTORAGE_KEYS.accessToken,
       data.access_token
     );
     window.localStorage.setItem(LOCALSTORAGE_KEYS.timestamp, Date.now());
 
-    // Reload the page for local storage updates to be reflected
+    // Reload the page for localStorage updates to be reflected
     window.location.reload();
   } catch (e) {
     console.error(e);
@@ -95,21 +94,21 @@ const refreshToken = async () => {
 };
 
 /**
- * Handles logic for retrieving the Spotify access token from local storage
+ * Handles logic for retrieving the access token from localStorage
  * or URL query params
- * @returns {string} A Spotify access token
+ * @returns {string}  access token
  */
 const getAccessToken = () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  //store tokens in local storage
   const queryParams = {
     [LOCALSTORAGE_KEYS.accessToken]: urlParams.get("access_token"),
     [LOCALSTORAGE_KEYS.refreshToken]: urlParams.get("refresh_token"),
     [LOCALSTORAGE_KEYS.expireTime]: urlParams.get("expires_in"),
   };
-  // If there's an error OR the token in localStorage has expired, refresh the token
   const hasError = urlParams.get("error");
+
+  // If there's an error OR the token in localStorage has expired, refresh the token
   if (
     hasError ||
     hasTokenExpired() ||
@@ -117,14 +116,19 @@ const getAccessToken = () => {
   ) {
     refreshToken();
   }
+
   // If there is a valid access token in localStorage, use that
   if (
     LOCALSTORAGE_VALUES.accessToken &&
     LOCALSTORAGE_VALUES.accessToken !== "undefined"
   ) {
+    console.log(LOCALSTORAGE_VALUES.accessToken);
+    console.log(LOCALSTORAGE_VALUES.refreshToken);
+    console.log(LOCALSTORAGE_VALUES.expireTime);
     return LOCALSTORAGE_VALUES.accessToken;
   }
-  // If there is no token in local storage but there is a token in the URL query params, user is logging in for the first time
+
+  // If there is a token in the URL query params, user is logging in for the first time
   if (queryParams[LOCALSTORAGE_KEYS.accessToken]) {
     // Store the query params in localStorage
     for (const property in queryParams) {
@@ -133,9 +137,13 @@ const getAccessToken = () => {
     // Set timestamp
     window.localStorage.setItem(LOCALSTORAGE_KEYS.timestamp, Date.now());
     // Return access token from query params
+    console.log(LOCALSTORAGE_VALUES.accessToken);
+    console.log(LOCALSTORAGE_VALUES.refreshToken);
+    console.log(LOCALSTORAGE_VALUES.expireTime);
     return queryParams[LOCALSTORAGE_KEYS.accessToken];
   }
-  // hopefully not
+
+  // We should never get here!
   return false;
 };
 
@@ -154,4 +162,61 @@ axios.defaults.baseURL = "https://www.googleapis.com/books/v1";
 axios.defaults.headers["Authorization"] = `Bearer ${accessToken}`; //access token is OAuth access token from local storage
 axios.defaults.headers["Content-Type"] = "application/json";
 
-export const getCurrentUserBookshelves = () => axios.get('/mylibrary/bookshelves/3')
+//https://developers.google.com/books/docs/v1/reference/?apix=true
+
+/**
+ * Returns data about bookshelf
+ * 3 === "Currently Reading Bookshelf"
+ * @returns {Promise}
+ */
+export const getCurrentUserBookshelves = () =>
+  axios.get("/mylibrary/bookshelves/3");
+
+  /**
+   * The books in the "Currently Reading" Bookshelf
+   * Volumes === book in Google API
+   * @returns {Promise}
+   */
+export const getCurrentReading = () =>
+  axios.get("/mylibrary/bookshelves/3/volumes");
+
+  /**
+   * Return all info about a specific book
+   * @param {string} book_id -unique id for each volume
+   * @returns 
+   */
+export const bookSearch = (title) => {
+  return axios.get(`/volumes?q=${title}&maxResults=10`);
+};
+
+/**
+   * Return all info about a specific book
+   * @param {string} book_id -unique id for each volume
+   * @returns 
+   */
+export const getBookById = (book_id) => {
+  return axios.get(`/volumes/${book_id}`);
+};
+
+
+
+/**
+   * Delete book from bookshelf
+   * @param {string} book_id -unique id for each volume
+   * @returns empty response body
+   */
+export const deleteBookById = (book_id) => {
+   axios.post(`/mylibrary/bookshelves/3/removeVolume?volumeId=${book_id}`);
+   console.log('deleted');
+};
+
+
+/**
+   * Add book to bookshelf
+   * @param {string} book_id -unique id for each volume
+   * @returns empty response body
+   */
+export const addBookByID = (book_id) => {
+  axios.post(`/mylibrary/bookshelves/3/addVolume?volumeId=${book_id}`);
+  console.log('added');
+};

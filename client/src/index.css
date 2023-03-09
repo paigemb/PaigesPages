@@ -1,13 +1,30 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+h2 {
+  font-family: AntiqueBookCover;
+  font-size: 50px;
+}
+
+@font-face {
+  font-family: "LovelyBubbles";
+  src: local("LovelyBubbles"), url(./styles/fonts/LovelyBubbles.ttf);
+}
+@font-face {
+  font-family: "Bookends";
+  src: local("Bookends"), url(./styles/fonts/Bookends.ttf);
+}
+@font-face {
+  font-family: "AntiqueBookCover";
+  src: local("AntiqueBookCover"), url(./styles/fonts/AntiqueBookCover.otf);
+}
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }

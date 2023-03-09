@@ -1,44 +1,56 @@
-import { useState, useEffect } from 'react';
-import { accessToken, logout, getCurrentUserBookshelves } from './googlebooks';
-import { catchErrors } from './utils';
-import './App.css';
+import { useState, useEffect } from "react";
+import { accessToken, logout } from "./googlebooks";
+import "./App.css";
 
+import { Login, BookInfo } from "./pages";
+import { Header } from "./components";
+
+// imports to handling page routing
 import {
   BrowserRouter as Router,
-  Switch,
+  Switch, //switch will find the first element with matching path and ignore the rest -> list more specific routes first
   Route,
-} from 'react-router-dom';
+  useLocation,
+} from "react-router-dom";
+
+// Scroll to top of page when changing routes
+// https://reactrouter.com/web/guides/scroll-restoration/scroll-to-top
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   //token variable for conditionally rendering the logged-in state
   const [token, setToken] = useState(null); //useState keeps track of token
-  const [bookshelves, setBookshelves] = useState(null);
-
+  const [playlist, setPlaylist] = useState("");
   // store access token
   useEffect(() => {
     setToken(accessToken);
-
-    const fetchData = async () => {
-        const { data } = await getCurrentUserBookshelves();
-        setBookshelves(data);
-    };
-
-    catchErrors(fetchData());
   }, []);
-console.log("here are the" + bookshelves.title);
+
   return (
     <div className="App">
-      <header className="App-header">
-        {!token ? (
-          <a className="App-link" href="http://localhost:8888/login">
-          Login
-        </a>
-        ): (
-          <>
-          <button onClick={logout}>Log Out</button>
-          </>
-        )}
-      </header>
+      {!token ? (
+        <Login />
+      ) : (
+        <>
+          <Header />
+          <Router>
+            <ScrollToTop />
+            <Switch>
+              <Route path="/book/:id">
+                <BookInfo />
+              </Route>
+            </Switch>
+          </Router>
+        </>
+      )}
     </div>
   );
 }
