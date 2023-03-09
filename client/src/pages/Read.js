@@ -1,5 +1,9 @@
+/*Page for sending/retrieving data from database */
+
 import { useEffect, useState } from "react";
 import axios from "axios";
+
+//components for updating database
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Timer } from "../components";
@@ -16,8 +20,7 @@ const Read = () => {
       .get("http://localhost:8888/sessions")
       .then((res) => {
         if (res.data.length > 0) {
-          setBooks(res.data.map((book) => book.title));
-          setTitle(res.data[0].title);
+          setBooks(res.data.map((book) => book.title)); //store book titles
         }
       })
       .catch((error) => {

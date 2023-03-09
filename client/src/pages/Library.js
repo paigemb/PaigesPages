@@ -69,7 +69,7 @@ const Library = () => {
   //return the books in a grid format
   return (
     <>
-      <h3 style="font-family=AntiqueBookCover">Current Library</h3>
+      <h3>Current Library</h3>
       <BooksGrid books={bookList} />
     </>
   );

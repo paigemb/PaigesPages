@@ -1,6 +1,5 @@
 import { logout } from "../googlebooks";
-import { StyledHeader, GlobalStyle } from "../styles";
-import { SectionWrapper } from "./SectionWrapper";
+import { StyledHeader} from "../styles";
 import { Home, Library, Read } from "../pages";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 

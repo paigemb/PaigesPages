@@ -1,3 +1,5 @@
+/*Style component for page displaying book info */
+
 import styled from "styled-components/macro";
 
 const StyledBookInfo = styled.div`
@@ -12,7 +14,6 @@ padding: 20px;
     float:left;
     padding: 20px;
     
-
   .cover {
     height: 350px;
 
@@ -26,7 +27,6 @@ padding: 20px;
   .timer {
     float: right;
     position:relative;
-
   }
 
   .flex-cont {

@@ -1,3 +1,5 @@
+/*Styling for home page */
+
 import styled from "styled-components/macro";
 
 const StyledHome = styled.div`

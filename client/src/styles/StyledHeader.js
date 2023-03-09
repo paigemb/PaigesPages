@@ -1,3 +1,5 @@
+/*Styling for the header*/
+
 import styled from "styled-components/macro";
 
 const StyledHeader = styled.div`

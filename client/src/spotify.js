@@ -1,7 +1,6 @@
 /* File for all Spotify-related logic */
 
 import axios from "axios";
-import { monthMap } from "./utils";
 
 /***********************************************************************************************************/
 /* Web Storage API local storage */
