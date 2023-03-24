@@ -1,15 +1,16 @@
 # PaigesPages
 - Bookly 2.0 (worse)
 
-
 - Tools and fun things utilized
+  - Node.js ==> execute javascript code outside of a web browser, cross-platform JavaScript env
   - nvm: node version manager
   - Express:
     - provides HTTP utility methods & middleware / route handling --> SAVES TIME
     - app.METHOD(PATH, HANDLER) <-- basic structure
   - nodemon:
     - restarts Node server automatically w/changes in index.js file
-  - OAuth: (https://developer.spotify.com/documentation/general/guides/authorization/)
+  - OAuth: https://developers.google.com/books/docs/v1/using#OAuth2Authorizing
+  
     - one app can interact w/another w/out needing your password<3
     - pass authorization tokens over HTTPS via access tokens
       - tokens expire and need to be refreshed for security
@@ -18,6 +19,10 @@
     - Styled Components & Styled Components Babel plugin: CSS-in-JS library for easier UI styling. They are React components so can be passed as props!
      - prettier: to make it prettier<3
      -eslint: so I stop messing up hooks
+    - Database 
+        - MongoDB Atlas as the database
+        - mongoose for connecting with Node.js, provides schema validation, manages relationships
+        - insomnia for testing queries
 
      ## Local Installation & Set Up
      1. Register a Google App in your dashboard and add `http://localhost:8888/callback` as a Redirect URI in the app settings

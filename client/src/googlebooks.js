@@ -198,8 +198,6 @@ export const getBookById = (book_id) => {
   return axios.get(`/volumes/${book_id}`);
 };
 
-
-
 /**
    * Delete book from bookshelf
    * @param {string} book_id -unique id for each volume
